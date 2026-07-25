@@ -1,0 +1,38 @@
+---
+title: WebSocket API Overview
+description: Real-time communication via WebSocket
+---
+
+## WebSocket API Overview
+
+The Worker API provides WebSocket connections for real-time features like chat messaging, typing indicators, and presence.
+
+### Connection URL
+
+```
+wss://api.worker.com/chat
+```
+
+### Authentication
+
+WebSocket connections require authentication via the `auth` parameter:
+
+```javascript
+import { io } from 'socket.io-client';
+
+const socket = io('wss://api.worker.com/chat', {
+  auth: {
+    token: 'YOUR_ACCESS_TOKEN'
+  }
+});
+```
+
+### Protocol
+
+| Feature | Details |
+|---------|---------|
+| Protocol | WebSocket (Socket.IO v4) |
+| Transport | WebSocket, HTTP long-polling fallback |
+| Namespace | `/chat` |
+| Authentication | JWT Bearer token |
+| Reconnection | Automatic with exponential backoff |

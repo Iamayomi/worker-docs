@@ -1,0 +1,54 @@
+---
+title: Deployment
+description: Deploying the API and documentation
+---
+
+## Deployment
+
+### Environment Variables
+
+For production deployment, set these environment variables:
+
+```bash
+# Swagger/OpenAPI
+SWAGGER_ENABLED=false  # Disable Swagger UI in production
+SWAGGER_PATH=api/docs
+
+# OpenAPI JSON endpoint (always enabled for Mintlify)
+OPENAPI_JSON_ENABLED=true
+```
+
+### Mintlify Deployment
+
+1. Push documentation to GitHub
+2. Connect repository to Mintlify
+3. Configure OpenAPI URL in Mintlify dashboard
+
+### CI/CD Pipeline
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy API & Docs
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy API
+        run: |
+          npm run build
+```
+
+### Health Check
+
+Verify OpenAPI JSON is accessible:
+
+```bash
+curl https://api.worker.com/api/docs/openapi.json | jq '.info.title'
+# "Worker API"
+```

@@ -1,0 +1,63 @@
+---
+title: JavaScript SDK
+description: Official JavaScript/TypeScript SDK
+---
+
+## JavaScript SDK
+
+Official SDK for the Worker API.
+
+### Installation
+
+<CodeGroup>
+  <CodeGroupItem title="npm">
+  ```bash
+  npm install @worker/sdk
+  ```
+  </CodeGroupItem>
+  <CodeGroupItem title="yarn">
+  ```bash
+  yarn add @worker/sdk
+  ```
+  </CodeGroupItem>
+  <CodeGroupItem title="pnpm">
+  ```bash
+  pnpm add @worker/sdk
+  ```
+  </CodeGroupItem>
+</CodeGroup>
+
+### Quick Start
+
+```typescript
+import { WorkerClient } from '@worker/sdk';
+
+const client = new WorkerClient({
+  apiKey: 'your-api-key',
+});
+
+// Register
+const { user, tokens } = await client.auth.register({
+  email: 'user@example.com',
+  password: 'SecurePass123!',
+});
+
+// Login
+const loginResult = await client.auth.login({
+  email: 'user@example.com',
+  password: 'SecurePass123!',
+});
+
+// Get current user
+const me = await client.users.getCurrentUser();
+```
+
+### Configuration
+
+```typescript
+const client = new WorkerClient({
+  baseUrl: 'https://api.worker.com/api/v1',
+  timeout: 30000,
+  retries: 3,
+});
+```

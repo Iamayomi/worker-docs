@@ -1,0 +1,46 @@
+---
+title: Error Handling
+description: How to handle API errors
+---
+
+## Error Handling
+
+The Worker API returns consistent error responses across all endpoints.
+
+### Error Response Format
+
+```json
+{
+  "success": false,
+  "statusCode": 400,
+  "message": "Validation failed",
+  "code": "BAD_REQUEST",
+  "path": "/api/v1/auth/login",
+  "timestamp": "2026-07-24T00:00:00Z",
+  "requestId": "req_01J7M9ABC123",
+  "validationError": [
+    {
+      "field": "email",
+      "message": "Email is required"
+    }
+  ]
+}
+```
+
+### Error Codes
+
+| Code | Status | Description |
+|------|--------|-------------|
+| `BAD_REQUEST` | 400 | Invalid request body or parameters |
+| `UNAUTHENTICATED` | 401 | Missing or invalid authentication |
+| `FORBIDDEN` | 403 | Insufficient permissions |
+| `NOT_FOUND` | 404 | Resource does not exist |
+| `ALREADY_EXISTS` | 409 | Resource already exists |
+| `UNPROCESSABLE_ENTITY` | 422 | Business logic validation failed |
+| `TOO_MANY_REQUESTS` | 429 | Rate limit exceeded |
+| `INTERNAL` | 500 | Unexpected server error |
+| `SERVICE_UNAVAILABLE` | 503 | Service temporarily unavailable |
+
+### Request ID
+
+Every response includes a `requestId` for debugging. Include this when contacting support.

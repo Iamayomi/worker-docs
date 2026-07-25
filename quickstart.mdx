@@ -1,0 +1,57 @@
+---
+title: Quickstart
+description: Get started with the Worker API in minutes
+---
+
+## Quickstart Guide
+
+Get up and running with the Worker API in just a few steps.
+
+### Prerequisites
+
+- Node.js 18+ or any HTTP client
+- An API key or JWT token
+
+### Step 1: Register an Account
+
+```bash
+curl -X POST https://api.worker.com/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "you@example.com",
+    "password": "SecurePass123!",
+    "full_name": "John Doe"
+  }'
+```
+
+### Step 2: Login
+
+```bash
+curl -X POST https://api.worker.com/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "you@example.com",
+    "password": "SecurePass123!"
+  }'
+```
+
+### Step 3: Make Authenticated Requests
+
+```bash
+curl -X GET https://api.worker.com/api/v1/users/me \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+### What's Next?
+
+<CardGroup>
+  <Card title="Authentication" icon="key" href="/authentication">
+    Learn about JWT tokens and session management
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference">
+    Explore all available endpoints
+  </Card>
+  <Card title="WebSocket Chat" icon="comments" href="/guides/websocket">
+    Set up real-time messaging
+  </Card>
+</CardGroup>

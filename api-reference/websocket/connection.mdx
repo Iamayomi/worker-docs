@@ -1,0 +1,43 @@
+---
+title: Connection
+description: WebSocket connection lifecycle
+---
+
+## Connection
+
+### Establishing Connection
+
+```javascript
+import { io } from 'socket.io-client';
+
+const socket = io('wss://api.worker.com/chat', {
+  auth: {
+    token: 'eyJhbGciOiJIUzI1NiIs...'
+  },
+  reconnection: true,
+  reconnectionAttempts: 10,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  timeout: 20000
+});
+
+socket.on('connect', () => {
+  console.log('Connected:', socket.id);
+});
+
+socket.on('connect_error', (error) => {
+  console.error('Connection error:', error.message);
+});
+```
+
+### Connection Events
+
+| Event | Direction | Description |
+|-------|-----------|-------------|
+| `connect` | Client | Connection established |
+| `disconnect` | Client | Connection lost |
+| `connect_error` | Client | Connection error |
+| `reconnect` | Client | Reconnection attempt |
+| `reconnect_attempt` | Client | Reconnection attempt number |
+| `reconnect_error` | Client | Reconnection error |
+| `reconnect_failed` | Client | All reconnection attempts failed |

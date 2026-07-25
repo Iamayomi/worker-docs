@@ -1,0 +1,50 @@
+---
+title: Python SDK
+description: Official Python SDK
+---
+
+## Python SDK
+
+Official SDK for the Worker API.
+
+### Installation
+
+```bash
+pip install worker-sdk
+```
+
+### Quick Start
+
+```python
+from worker import WorkerClient
+
+client = WorkerClient(api_key="your-api-key")
+
+# Register
+result = client.auth.register(
+    email="user@example.com",
+    password="SecurePass123!",
+    full_name="John Doe"
+)
+
+# Login
+result = client.auth.login(
+    email="user@example.com",
+    password="SecurePass123!"
+)
+
+# Get current user
+me = client.users.get_current()
+```
+
+### Configuration
+
+```python
+from worker import WorkerClient
+
+client = WorkerClient(
+    base_url="https://api.worker.com/api/v1",
+    timeout=30,
+    max_retries=3,
+)
+```

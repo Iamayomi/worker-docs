@@ -1,0 +1,57 @@
+---
+title: WebSocket Errors
+description: WebSocket error handling
+---
+
+## WebSocket Errors
+
+### Error Event
+
+All errors are emitted via the `error` event:
+
+```javascript
+socket.on('error', (error) => {
+  console.error('WebSocket error:', error);
+});
+```
+
+### Error Codes
+
+| Code | Description | Resolution |
+|------|-------------|------------|
+| `AUTH_ERROR` | Authentication failed | Refresh token and reconnect |
+| `VALIDATION_ERROR` | Invalid message payload | Check payload format |
+| `RATE_LIMITED` | Too many requests | Implement backoff |
+| `NOT_FOUND` | Conversation not found | Verify conversation ID |
+| `FORBIDDEN` | Not a participant | Check user permissions |
+| `INTERNAL_ERROR` | Server error | Retry with backoff |
+
+### Connection Errors
+
+| Error | Cause | Resolution |
+|-------|-------|------------|
+| `Unauthorized` | Invalid/missing token | Refresh authentication |
+| `ECONNREFUSED` | Server unavailable | Retry with backoff |
+| `ECONNRESET` | Connection dropped | Auto-reconnect handles this |
+| `ETIMEDOUT` | Connection timeout | Check network, retry |
+
+### Reconnection Strategy
+
+```javascript
+const socket = io('wss://api.worker.com/chat', {
+  auth: { token: accessToken },
+  reconnection: true,
+  reconnectionAttempts: 10,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  randomizationFactor: 0.5
+});
+
+socket.on('reconnect', (attempt) => {
+  console.log(`Reconnected after ${attempt} attempts`);
+});
+
+socket.on('reconnect_failed', () => {
+  console.error('All reconnection attempts failed');
+});
+```

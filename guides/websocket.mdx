@@ -1,0 +1,67 @@
+---
+title: WebSocket Chat
+description: Real-time messaging with WebSocket
+---
+
+## WebSocket Chat
+
+Connect to the Worker API WebSocket for real-time messaging.
+
+### Connection
+
+```javascript
+import { io } from 'socket.io-client';
+
+const socket = io('https://api.worker.com/chat', {
+  auth: {
+    token: 'YOUR_ACCESS_TOKEN'
+  }
+});
+```
+
+### Events
+
+#### Send Message
+
+```javascript
+socket.emit('chat:send', {
+  conversationId: 'conv_123',
+  content: 'Hello, World!'
+}, (response) => {
+  console.log('Message sent:', response);
+});
+```
+
+#### Receive Message
+
+```javascript
+socket.on('chat:message', (message) => {
+  console.log('New message:', message);
+});
+```
+
+#### Typing Indicators
+
+```javascript
+// Send typing indicator
+socket.emit('chat:typing', { conversationId: 'conv_123' });
+
+// Receive typing indicator
+socket.on('chat:typing', (data) => {
+  console.log(`${data.userId} is typing...`);
+});
+```
+
+#### Read Receipts
+
+```javascript
+// Mark messages as read
+socket.emit('chat:read', { conversationId: 'conv_123' }, (response) => {
+  console.log('Read receipt:', response);
+});
+
+// Receive read receipt
+socket.on('chat:read_receipt', (data) => {
+  console.log(`Messages read by ${data.readBy}: ${data.count}`);
+});
+```

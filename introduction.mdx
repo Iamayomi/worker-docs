@@ -1,0 +1,65 @@
+---
+title: Introduction
+description: Welcome to the Worker API documentation
+---
+
+## Welcome to Worker API
+
+The Worker API is a comprehensive platform for job management, applications, and real-time communication.
+
+### Key Features
+
+<CardGroup>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Secure JWT-based authentication with Google OAuth support
+  </Card>
+  <Card title="Real-time Chat" icon="comments" href="/guides/websocket">
+    WebSocket-powered messaging with typing indicators and read receipts
+  </Card>
+  <Card title="File Uploads" icon="cloud-arrow-up" href="/guides/file-upload">
+    Secure file uploads with virus scanning via ClamAV
+  </Card>
+  <Card title="Job Management" icon="briefcase" href="/api-reference">
+    Full CRUD operations for jobs and applications
+  </Card>
+</CardGroup>
+
+### Base URL
+
+```
+https://api.worker.com/api/v1
+```
+
+### Response Format
+
+Every response follows a consistent structure:
+
+<Tabs>
+  <Tab title="Success Response">
+    ```json
+    {
+      "success": true,
+      "statusCode": 200,
+      "message": "Success",
+      "data": {},
+      "timestamp": "2026-07-24T00:00:00Z",
+      "requestId": "req_xxx"
+    }
+    ```
+  </Tab>
+  <Tab title="Error Response">
+    ```json
+    {
+      "success": false,
+      "statusCode": 400,
+      "message": "Validation failed",
+      "code": "BAD_REQUEST",
+      "path": "/api/v1/auth/login",
+      "timestamp": "2026-07-24T00:00:00Z",
+      "requestId": "req_xxx"
+    }
+    ```
+  </Tab>
+</Tabs>
+
+Ready to get started? Head over to the [Quickstart](/quickstart) guide.

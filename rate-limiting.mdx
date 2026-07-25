@@ -1,0 +1,50 @@
+---
+title: Rate Limiting
+description: API rate limits and best practices
+---
+
+## Rate Limiting
+
+The Worker API implements rate limiting to ensure fair usage and system stability.
+
+### Default Limits
+
+| Endpoint Category | Limit | Window |
+|-------------------|-------|--------|
+| Authentication | 10 requests | 1 minute |
+| General API | 100 requests | 1 minute |
+| File Uploads | 20 requests | 1 minute |
+
+### Rate Limit Headers
+
+Every response includes rate limit information:
+
+```
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 1690000000
+```
+
+### Handling Rate Limits
+
+When you exceed the rate limit, you'll receive a `429 Too Many Requests` response:
+
+```json
+{
+  "success": false,
+  "statusCode": 429,
+  "message": "Rate limit exceeded",
+  "code": "TOO_MANY_REQUESTS",
+  "retryAfter": 30
+}
+```
+
+### Best Practices
+
+<Checklist>
+  - Implement exponential backoff for retries
+  - Cache responses when possible
+  - Use batch endpoints for bulk operations
+  - Monitor `X-RateLimit-Remaining` header
+  - Respect the `retryAfter` value in 429 responses
+</Checklist>

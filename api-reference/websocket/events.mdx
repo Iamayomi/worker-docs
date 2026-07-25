@@ -1,0 +1,126 @@
+---
+title: Events
+description: WebSocket events and payloads
+---
+
+## Events
+
+### Client → Server Events
+
+#### `chat:send`
+
+Send a message to a conversation.
+
+<ParamField body="conversationId" type="string" required>
+  The conversation ID
+</ParamField>
+
+<ParamField body="content" type="string" required>
+  Message content (max 5000 characters)
+</ParamField>
+
+<RequestExample>
+```javascript
+socket.emit('chat:send', {
+  conversationId: 'conv_123',
+  content: 'Hello, World!'
+}, (response) => {
+  if (response.event === 'chat:sent') {
+    console.log('Message sent:', response.data.messageId);
+  }
+});
+```
+</RequestExample>
+
+---
+
+#### `chat:typing`
+
+Send typing indicator to a conversation.
+
+<ParamField body="conversationId" type="string" required>
+  The conversation ID
+</ParamField>
+
+<RequestExample>
+```javascript
+socket.emit('chat:typing', {
+  conversationId: 'conv_123'
+});
+```
+</RequestExample>
+
+---
+
+#### `chat:read`
+
+Mark messages as read.
+
+<ParamField body="conversationId" type="string" required>
+  The conversation ID
+</ParamField>
+
+<RequestExample>
+```javascript
+socket.emit('chat:read', {
+  conversationId: 'conv_123'
+}, (response) => {
+  console.log('Read receipt:', response.data.count);
+});
+```
+</RequestExample>
+
+---
+
+### Server → Client Events
+
+#### `chat:message`
+
+Receive a new message.
+
+```javascript
+socket.on('chat:message', (message) => {
+  console.log('New message:', message);
+  // { id, conversationId, senderId, content, createdAt, isOwn }
+});
+```
+
+---
+
+#### `chat:typing`
+
+Receive typing indicator.
+
+```javascript
+socket.on('chat:typing', (data) => {
+  showTypingIndicator(data.userId);
+});
+```
+
+---
+
+#### `chat:read_receipt`
+
+Receive read receipt.
+
+```javascript
+socket.on('chat:read_receipt', (data) => {
+  console.log(`Messages read by ${data.readBy}: ${data.count}`);
+});
+```
+
+---
+
+#### `user:online` / `user:offline`
+
+User presence events.
+
+```javascript
+socket.on('user:online', (data) => {
+  updateUserStatus(data.userId, 'online');
+});
+
+socket.on('user:offline', (data) => {
+  updateUserStatus(data.userId, 'offline');
+});
+```

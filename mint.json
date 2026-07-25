@@ -1,0 +1,110 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Worker API",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.ico",
+  "colors": {
+    "primary": "#0e1e86",
+    "light": "#5e6ad2",
+    "dark": "#1a1f36",
+    "anchors": {
+      "from": "#0e1e86",
+      "to": "#5e6ad2"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@worker.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.worker.com"
+  },
+  "api": {
+    "baseUrl": "https://api.worker.com",
+    "openapi": "https://api.worker.com/api/docs/openapi.json",
+    "auth": {
+      "method": "bearer"
+    }
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "SDKs",
+      "url": "sdks"
+    },
+    {
+      "name": "Guides",
+      "url": "guides"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.gg/worker"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/worker/api"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "authentication",
+        "errors",
+        "rate-limiting",
+        "pagination"
+      ]
+    },
+    {
+      "group": "HTTP API",
+      "pages": [
+        "api-reference/openapi"
+      ]
+    },
+    {
+      "group": "WebSocket API",
+      "pages": [
+        "api-reference/websocket/overview",
+        "api-reference/websocket/connection",
+        "api-reference/websocket/events",
+        "api-reference/websocket/errors"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/websocket",
+        "guides/file-upload",
+        "guides/email-templates",
+        "guides/deployment"
+      ]
+    },
+    {
+      "group": "SDKs",
+      "pages": [
+        "sdks/javascript",
+        "sdks/python"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/worker/api",
+    "discord": "https://discord.gg/worker",
+    "twitter": "https://twitter.com/worker"
+  }
+}

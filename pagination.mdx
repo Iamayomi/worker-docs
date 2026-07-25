@@ -1,0 +1,39 @@
+---
+title: Pagination
+description: How to paginate API responses
+---
+
+## Pagination
+
+The Worker API uses cursor-based pagination for list endpoints.
+
+### Query Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `cursor` | string | - | Cursor for next page |
+| `limit` | number | 20 | Items per page (max 100) |
+
+### Response Format
+
+```json
+{
+  "success": true,
+  "statusCode": 200,
+  "data": {
+    "items": [...],
+    "pagination": {
+      "nextCursor": "eyJpZCI6MTIzfQ==",
+      "hasMore": true
+    }
+  }
+}
+```
+
+### Pagination Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `items` | array | Array of items |
+| `nextCursor` | string \| null | Cursor for next page (null if no more) |
+| `hasMore` | boolean | Whether more pages exist |
